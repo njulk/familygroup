@@ -69,4 +69,4 @@ class JsonExtendEncoder(json.JSONEncoder):
             return json.JSONEncoder.default(self, o)
 
 # db=web.database(dbn='mysql',user='root',pw='123456789',db='family',host="localhost")
-db=web.database(dbn='mysql',user='cdb_outerroot',pw='w85685216',db='mysql',port=8470,host="594d02b639e4a.gz.cdb.myqcloud.com")
+db=web.database(dbn='mysql',user='cdb_outerroot',pw='w85685216',db='familygroup',port=8470,host="594d02b639e4a.gz.cdb.myqcloud.com")
