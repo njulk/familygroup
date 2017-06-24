@@ -65,4 +65,13 @@ if __name__=="__main__":
     '''
     db.create_table(sql)
 
+    sql='''create table IF NOT EXISTS reminder(
+        reminderid bigint(12) auto_increment NOT NULL PRIMARY KEY,
+        title varchar(50) NOT NULL,
+        content varchar(100),
+        remindtime datetime NOT NULL,
+        createuserid bigint(12), NOT NULL
+    )'''
+    db.create_table
+
 

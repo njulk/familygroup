@@ -32,7 +32,7 @@ def getEventPageByGroupid(groupid,start,offset):
 # 新增事件
 def postEvent(prop):
     try:
-        db.insert('event',**prop)
+        return db.insert('event',**prop)
     except:
         t.rollback()
         raise
@@ -42,7 +42,7 @@ def postEvent(prop):
 # 修改事件
 def putEvent(id,prop):
     try:
-        db.update('event',where='eventid=$eventid',vars={'eventid': id},**prop)
+        return db.update('event',where='eventid=$eventid',vars={'eventid': id},**prop)
     except:
         t.rollback()
         raise
@@ -52,7 +52,7 @@ def putEvent(id,prop):
 # 删除事件
 def deleteEvent(id):
     try:
-        db.delete('event', where='eventid=$eventid',vars={'eventid': id})
+        return db.delete('event', where='eventid=$eventid',vars={'eventid': id})
     except:
         t.rollback()
         raise
