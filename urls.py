@@ -3,16 +3,17 @@ import json
 from datetime import *
 import time
 urls=(
+    '/','Home',
     '/creategroup','creategroup',   #post(/creategroup?createuserid=&groupname=&groupdescription=写在body里)
     '/updategroup','updategroup',    #put
     '/addgroup','addgroup',          #post
     '/createtalk','createtalk',      #post /createtalk?eventid=&userid=&content(写在body里)
-    '/image','image',
     '/login','login',
     '/update','update',
     '/gettalk','gettalk',
     '/comment','comment',
-    '/event','EventController'
+    '/event','EventsController',
+    '/event/(.+)','EventController'
 )
 
 class CJsonEncoder(json.JSONEncoder):

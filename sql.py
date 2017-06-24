@@ -3,11 +3,17 @@ import json
 
 
 
-DATABASE_NAME='mysql'
-HOST='594d02b639e4a.gz.cdb.myqcloud.com'
-PORT='8470'
-USER_NAME='cdb_outerroot'
-PASSWD='w85685216'
+# DATABASE_NAME='mysql'
+# HOST='594d02b639e4a.gz.cdb.myqcloud.com'
+# PORT='8470'
+# USER_NAME='cdb_outerroot'
+# PASSWD='w85685216'
+# CHAR_SET='utf8'
+
+DATABASE_NAME='family'
+HOST='localhost'
+USER_NAME='root'
+PASSWD='123456789'
 CHAR_SET='utf8'
 
 class mysql:

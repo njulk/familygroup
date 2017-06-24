@@ -3,7 +3,7 @@
 import web
 
 from controller.home import Home
-from controller.EventController import EventController
+from controller.EventController import *
 from controller.notfound import notfound
 from urls import urls
 from Group import *

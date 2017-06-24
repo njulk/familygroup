@@ -51,25 +51,3 @@ class createtalk:
                 return json.dumps(createSuccess(list(db.select('talk',where="eventid="+streventid+" "+"AND"+" "+"userid="+struserid+" order by talkid desc"+" "+"LIMIT 1"))),cls=CJsonEncoder)
         else:
             return json.dumps(creatFailure(2,u"参数缺少"))
-
-class image:
-    def POST(self):
-        input = web.input(image = {})
-        if 'image' in input:
-            filedir='./'
-            filepath=input.image.filename
-            print(filepath)
-            filename='testimage.jpg'
-            ext=filename.split('.',1)[1]
-            if ext=='jpg' or ext=='png' or ext=='gif':
-                fout=open(filedir+'/'+filename,'wb')
-                fout.write(input.image.file.read())
-                fout.close()
-            else:
-                return u'上传图片格式不符合要求'
-                raise web.seeother('/file')
-
-#
-# if __name__=="__main__":
-#     app=web.application(urls,globals())
-#     app.run()

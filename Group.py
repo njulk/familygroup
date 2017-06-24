@@ -22,7 +22,10 @@ def producegroupid():
 
 def getgroupinfo(mgroupid):
     mgroupid=str(mgroupid)
-    data=list(db.select('familygroup',where="groupid="+mgroupid))+list(db.select('link_user',where="groupid="+mgroupid))
+    data={
+        'group': list(db.select('familygroup',where="groupid="+mgroupid)),
+        'members': list(db.select('link_user',where="groupid="+mgroupid))
+    }
     return json.dumps(createSuccess(data),cls=CJsonEncoder)
 
 

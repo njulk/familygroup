@@ -11,7 +11,7 @@ import model.EventModel
 import utils
 
 
-class EventController:
+class EventsController:
 
     # 根据groupid获取event
     def GET(self):
@@ -52,8 +52,9 @@ class EventController:
             }
 
             try:
-                model.EventModel.postEvent(condition)
-                res=utils.createSuccess()
+                id=model.EventModel.postEvent(condition)
+                data=model.EventModel.getEventById(id)
+                res=utils.createSuccess(data)
             except:
                 res=utils.creatFailure(2)
 
@@ -61,46 +62,52 @@ class EventController:
             res=utils.creatFailure(1)
 
         web.header('content-type', 'text/json')
-        return json.dumps(res)
+        return json.dumps(res,cls=utils.JsonExtendEncoder)
 
-    # 修改事件
-    def PUT(self):
-        input=json.loads(web.data())
-            
-        if 'eventid' in input:
-            condition={
-                'eventname': input.get('eventname'),
-                'eventdescription': input.get('eventdescription'),
-                'eventpicture': input.get('eventpicture')
-            }
 
-            try:
-                model.EventModel.putEvent(input['eventid'],condition)
-                res=utils.createSuccess()
-            except:
-                res=utils.creatFailure(2)
-            
-        else:
-            res=utils.creatFailure(1)
+
+class EventController:
+    # 根据eventid获取事件
+    def GET(self,id):
+        try:
+            data=model.EventModel.getEventById(id)
+            res=utils.createSuccess(data)
+        except:
+            res=utils.creatFailure(2)
 
         web.header('content-type', 'text/json')
-        return json.dumps(res)
+        return json.dumps(res,cls=utils.JsonExtendEncoder)
+
+     # 修改事件
+    def PUT(self,id):
+        input=json.loads(web.data()) 
+        condition={
+            'eventname': input.get('eventname'),
+            'eventdescription': input.get('eventdescription'),
+            'eventpicture': input.get('eventpicture')
+        }
+
+        try:
+            model.EventModel.putEvent(id,condition)
+            data=model.EventModel.getEventById(id)
+            res=utils.createSuccess(data)
+        except:
+            res=utils.creatFailure(2)
+
+        web.header('content-type', 'text/json')
+        return json.dumps(res,cls=utils.JsonExtendEncoder)
 
     # 删除事件
-    def DELETE(self):
-        input=web.data()
-
-        if 'eventid' in input:
-            try:
-                model.EventModel.deleteEvent(input.get('eventid'))
-                res=utils.createSuccess()
-            except:
-                res=utils.creatFailure(2)
-        else:
-            res=utils.creatFailure(1)
-
+    def DELETE(self,id):
+        try:
+            model.EventModel.deleteEvent(id)
+            res=utils.createSuccess()
+        except:
+            res=utils.creatFailure(2)
+       
         web.header('content-type', 'text/json')
-        return json.dumps(res)
+        return json.dumps(res,cls=utils.JsonExtendEncoder)
+
 
 
 
