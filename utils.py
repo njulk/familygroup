@@ -13,6 +13,7 @@ errors=[
     u'数据库操作失败',
     u'数据格式错误',
     u'没有权限'
+    u'此ID不存在'
 ]
 
 def createSuccess(data=None):
