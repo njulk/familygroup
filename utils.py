@@ -36,25 +36,6 @@ def creatFailure(code,message=None):
             'code': code,
             'message': errors[code]
         }
-   
-    
-
-# 上传图片
-# def uploadImage(image,name):
-#     filepath=image.filename.replace('\\','/')
-#     filename=filepath.split('/')[-1]
-#     ext=filename.split('.',1)[1]
-
-#     if ext=='jpg' or ext=='png' or ext=='gif':
-#         try:
-#             fout=open(name+'.'+ext,'wb')
-#             fout.write(image.file.read())
-#             fout.close()
-#             return True
-#         except:
-#             return False
-#     else: 
-#         return False
 
 class JsonExtendEncoder(json.JSONEncoder):  
     """  

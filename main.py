@@ -7,6 +7,7 @@ import web
 from controller.home import Home
 from controller.EventController import *
 from controller.ReminderController import *
+from controller.ImageController import *
 from controller.notfound import notfound
 from urls import urls
 from Group import *
@@ -27,6 +28,7 @@ def session_hook():
     web.ctx.session = session
 
 app.add_processor(web.loadhook(session_hook))
+
     
 if __name__=='__main__':
     #web.wsgi.runwsgi = lambda func, addr=None: web.wsgi.runfcgi(func, addr)
