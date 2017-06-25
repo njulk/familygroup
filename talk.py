@@ -48,6 +48,6 @@ class createtalk:
                 self.mtransation.commit()
                 streventid=str(meventid)
                 struserid=str(muserid)
-                return json.dumps(createSuccess(list(db.select('talk',where="eventid="+streventid+" "+"AND"+" "+"userid="+struserid+" order by talkid desc"+" "+"LIMIT 1"))),cls=CJsonEncoder)
+                return json.dumps(createSuccess(list(db.select('talk',where="eventid="+streventid+" "+"AND"+" "+"userid=$struserid"+" order by talkid desc"+" "+"LIMIT 1",vars={"struserid":struserid}))),cls=CJsonEncoder)
         else:
             return json.dumps(creatFailure(1))

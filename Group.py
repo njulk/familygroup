@@ -52,7 +52,7 @@ class creategroup:
             strcreateuserid=str(mcreateuserid)
             try:
                 db.insert('familygroup',groupid=mgroupid,createuserid=mcreateuserid,groupname=mgroupname,groupdescription=mgroupdescription,setgrouptime=msetgrouptime,groupportrait=mgroupportrait)
-                db.update('link_user',where="userid="+strcreateuserid,groupid=mgroupid);
+                db.update('link_user',where='userid=$strcreateuserid',vars={'userid':strcreateuserid},groupid=mgroupid);
                 #strgroupid=str(mgroupid)
                 #data=list(db.select('familygroup',where="groupid="+strgroupid))
                 #print(data)
@@ -117,7 +117,7 @@ class addgroup:
             return json.dumps(creatFailure(5))
         else:
             try:
-                db.update('link_user', where="userid=" + struserid, groupid=mgroupid);
+                db.update('link_user', where='userid=$struserid',vars={'struserid':struserid}, groupid=mgroupid);
             except:
                 self.mtransation.rollback()
                 return json.dumps(creatFailure(2))
