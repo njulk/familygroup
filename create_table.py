@@ -4,7 +4,7 @@ db=mysql()
 if __name__=="__main__":
 
     sql='''create table IF NOT EXISTS link_user(
-        userid bigint(12) NOT NULL PRIMARY KEY,
+        userid varchar(200) NOT NULL PRIMARY KEY,
         groupid bigint(12),
         name varchar(100) ,
         nickname varchar(100) ,
@@ -22,7 +22,7 @@ if __name__=="__main__":
 
     sql='''create table IF NOT EXISTS familygroup(
         groupid bigint(12) NOT NULL PRIMARY KEY,
-        createuserid bigint(12) NOT NULL,
+        createuserid varchar(200) NOT NULL,
         groupname varchar(100) ,
         groupportrait varchar(100),
         groupdescription varchar(100),
@@ -31,9 +31,20 @@ if __name__=="__main__":
     '''
     db.create_table(sql)
 
+    sql = '''create table IF NOT EXISTS mapgroupid(
+           groupid bigint(12) NOT NULL PRIMARY KEY,
+           imid   varchar(200) NOT NULL                                        
+       )
+       '''
+    db.create_table(sql)
+
+
+
+
+
     sql='''create table IF NOT EXISTS event(
         eventid bigint(12) auto_increment NOT NULL PRIMARY KEY,
-        createuserid bigint(12) NOT NULL,
+        createuserid varchar(200) NOT NULL,
         groupid bigint(12) NOT NULL,
         eventname varchar(100) NOT NULL,
         eventdescription varchar(200),
@@ -46,7 +57,7 @@ if __name__=="__main__":
     sql='''create table IF NOT EXISTS talk(
         talkid bigint auto_increment NOT NULL PRIMARY KEY,
         eventid bigint(12) NOT NULL,
-        userid bigint(12) NOT NULL,
+        userid varchar(200) NOT NULL,
         talkcontent varchar(100),
         pictureurl varchar(100),
         time datetime   #time=2017-06-22 17:15:54
@@ -58,7 +69,7 @@ if __name__=="__main__":
     sql='''create table IF NOT EXISTS comment(
         commentid bigint(12) auto_increment NOT NULL PRIMARY KEY,
         talkid bigint(12) NOT NULL,
-        userid bigint(12) NOT NULL,
+        userid varchar(200) NOT NULL,
         commentcontent varchar(200) NOT NULL,
         time datetime
     )

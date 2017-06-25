@@ -29,6 +29,55 @@ def getgroupinfo(mgroupid):
     return json.dumps(createSuccess(data),cls=CJsonEncoder)
 
 
+class creategroupmap:
+    def __int__(self):
+        self.mtransation=db.transaction()
+    def POST(self):
+        print(web.data())
+        receivedata=json.loads(web.data())
+        print(receivedata)
+        mgroupid=receivedata['groupid']
+        mimid=receivedata['imid']
+        try:
+            db.insert('mapgroupid',groupid=mgroupid,imid=mimid)
+        except:
+            self.mtransation.rollback()
+            return json.dumps(creatFailure(2,"fail"))
+        else:
+            self.mtransation.commit()
+            return json.dumps(createSuccess("success"))
+
+
+class getgroupim:
+    def GET(self):
+        receivedata=web.input()
+        mgoupid=receivedata['groupid']
+        result=[]
+        try:
+            result=list(db.select('mapgroupid',where="groupid="+mgoupid))
+            try:
+                first = result[0]
+            except:
+                return json.dumps(creatFailure(5, "no di"))
+        except:
+            return json.dumps(creatFailure(2, "fail"))
+        else:
+            return json.dumps(list(result))
+
+class getgroup:
+    def __int__(self):
+        self.mtransation = db.transaction()
+    def GET(self):
+        receivedata=web.input()
+        mgroupid=receivedata['groupid']
+        result=db.select('familygroup',where="groupid="+mgroupid)
+        try:
+            first=result[0]
+        except:
+            return json.dumps(creatFailure(5, "no id"))
+        return getgroupinfo(mgroupid)
+
+
 
 class creategroup:
     def __init__(self):
@@ -52,7 +101,7 @@ class creategroup:
             strcreateuserid=str(mcreateuserid)
             try:
                 db.insert('familygroup',groupid=mgroupid,createuserid=mcreateuserid,groupname=mgroupname,groupdescription=mgroupdescription,setgrouptime=msetgrouptime,groupportrait=mgroupportrait)
-                db.update('link_user',where="userid="+strcreateuserid,groupid=mgroupid);
+                db.update('link_user',where='userid=$strcreateuserid',vars={'userid':strcreateuserid},groupid=mgroupid);
                 #strgroupid=str(mgroupid)
                 #data=list(db.select('familygroup',where="groupid="+strgroupid))
                 #print(data)
@@ -60,12 +109,12 @@ class creategroup:
                 result=getgroupinfo(mgroupid)
             except:
                 self.mtransation.rollback()
-                return json.dumps(creatFailure(1,u"错误"))
+                return json.dumps(creatFailure(2))
             else:
                 self.mtransation.commit()
                 return result
         else:
-            return json.dumps(creatFailure(1,u"参数不全"))
+            return json.dumps(creatFailure(1))
 
 
 class updategroup:
@@ -76,7 +125,7 @@ class updategroup:
         if 'groupid' in receivedata:
             mgroupid=receivedata['groupid']
         else:
-            return json.dumps(creatFailure(1,u"参数不全"))
+            return json.dumps(creatFailure(1))
         mgroupname=None
         mgroupdescription=None
         if 'groupname' in receivedata:
@@ -94,7 +143,7 @@ class updategroup:
             #print(data)
         except:
             self.mtransation.rollback()
-            return json.dumps(creatFailure(1,u"错误"))
+            return json.dumps(creatFailure(2))
         else:
             self.mtransation.commit()
             #return data
@@ -107,20 +156,20 @@ class addgroup:
     def POST(self):
         receivedata = json.loads(web.data())
         if 'userid' and 'groupid' in receivedata:
-            muserid = receivedata['userid']
-            mgroupid = receivedata['groupid']
+            muserid = receivedata.get('userid')
+            mgroupid = receivedata.get('groupid')
         else:
-            return json.dumps(creatFailure(1,u"参数错误"))
+            return json.dumps(creatFailure(1))
         strgroupid=str(mgroupid)
         struserid=str(muserid)
         if(json.dumps(list(db.select('familygroup',where="groupid="+strgroupid)),cls=CJsonEncoder)=="[]"):
-            return json.dumps(creatFailure(1,u"没有此组"))
+            return json.dumps(creatFailure(5))
         else:
             try:
-                db.update('link_user', where="userid=" + struserid, groupid=mgroupid);
+                db.update('link_user', where='userid=$struserid',vars={'struserid':struserid}, groupid=mgroupid);
             except:
                 self.mtransation.rollback()
-                return json.dumps(creatFailure(1,u"SQL更新错误"))
+                return json.dumps(creatFailure(2))
             else:
                 self.mtransation.commit()
                 #data = json.dumps((list(db.select('familygroup', where="groupid=" + strgroupid))))

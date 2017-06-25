@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 import web
@@ -16,6 +17,7 @@ from controller.EventController import *
 app = web.application(urls, globals())
 app.notfound = notfound
 
+
 session = web.session.Session(
     app, web.session.DiskStore('sessions'), initializer={'login': 0})
 
@@ -23,8 +25,11 @@ session = web.session.Session(
 def session_hook():
     web.ctx.session = session
 
-
 app.add_processor(web.loadhook(session_hook))
-
-if __name__ == '__main__':
+    
+if __name__=='__main__':
+    #web.wsgi.runwsgi = lambda func, addr=None: web.wsgi.runfcgi(func, addr)
     app.run()
+
+
+

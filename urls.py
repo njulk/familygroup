@@ -8,12 +8,16 @@ urls=(
     '/updategroup','updategroup',    #put
     '/addgroup','addgroup',          #post
     '/createtalk','createtalk',      #post /createtalk?eventid=&userid=&content(写在body里)
+    '/creategroupmap','creategroupmap',
+    '/getgroupim','getgroupim',
+    '/getgroup','getgroup',
     '/login','login',
     '/update','update',
     '/gettalk','gettalk',
     '/comment','comment',
     '/event','EventsController',
-    '/event/(.+)','EventController'
+    '/event/(.+)','EventController',
+    '/user','user'
 )
 
 class CJsonEncoder(json.JSONEncoder):
