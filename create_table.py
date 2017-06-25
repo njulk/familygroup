@@ -8,7 +8,7 @@ if __name__=="__main__":
         groupid bigint(12),
         name varchar(100) ,
         nickname varchar(100) ,
-        portrait varchar(100),
+        portrait varchar(600),
         age int,
         gender bit,
         birthday date,
@@ -24,7 +24,7 @@ if __name__=="__main__":
         groupid bigint(12) NOT NULL PRIMARY KEY,
         createuserid varchar(200) NOT NULL,
         groupname varchar(100) ,
-        groupportrait varchar(100),
+        groupportrait varchar(600),
         groupdescription varchar(100),
         setgrouptime datetime                                         
     )
@@ -48,7 +48,7 @@ if __name__=="__main__":
         groupid bigint(12) NOT NULL,
         eventname varchar(100) NOT NULL,
         eventdescription varchar(200),
-        eventpicture varchar(50),
+        eventpicture varchar(600),
         createtime datetime NOT NULL
     )
     '''
@@ -59,7 +59,7 @@ if __name__=="__main__":
         eventid bigint(12) NOT NULL,
         userid varchar(200) NOT NULL,
         talkcontent varchar(100),
-        pictureurl varchar(100),
+        pictureurl varchar(600),
         time datetime   #time=2017-06-22 17:15:54
     )
     '''

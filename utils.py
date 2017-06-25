@@ -19,6 +19,7 @@ errors=[
 ]
 
 def createSuccess(data=None):
+    '''操作执行成功，返回成功格式结果'''
     return {
         'code': 0,
         'message': errors[0],
@@ -26,6 +27,7 @@ def createSuccess(data=None):
     }
 
 def creatFailure(code,message=None):
+    '''操作执行失败，返回失败格式结果'''
     if message:
         return {
             'code': code,
@@ -52,8 +54,8 @@ class JsonExtendEncoder(json.JSONEncoder):
         else:  
             return json.JSONEncoder.default(self, o)
 
-# 进行权限验证
 def logged(func):
+    '''权限控制装饰器，添加到需要权限才能访问的函数上'''
     def wrapper(*args,**kw):
         if web.ctx.session.login==1 or not isCheckLogin:
             return func(*args,**kw)

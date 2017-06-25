@@ -12,12 +12,13 @@ import utils
 render=web.template.render('templates/')
 
 class ImageController:
-    # 获取图片上传页面
+
     def GET(self):
+        '''获取图片上传测试页面'''
         return render.image()
 
-    # 上传图片
     def POST(self):
+        '''上传图片'''
         input=web.input(image={})
 
         if 'image' in input:
