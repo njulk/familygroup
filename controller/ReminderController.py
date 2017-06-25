@@ -26,7 +26,15 @@ class ReminderController:
         condition={
             'title': input.get('title'),
             'content': input.get('content'),
-            
+            'remindtime': input.get('remindtime')
         }
-
-    
+        
+        try:
+            model.ReminderModel.putReminder(id,condition)
+            data=model.ReminderModel.getReminderById(id)
+            res=utils.createSuccess(data)
+        except:
+            res=utils.creatFailure(2)
+        
+        web.header('content-type', 'text/json')
+        return json.dumps(res,cls=utils.JsonExtendEncoder)

@@ -56,19 +56,21 @@ class update:            #login应该是POST请求
         data = web.data()
         self.mtransation = db.transaction()
         decodeData = js.loads(data)  #tmp为字典类型
-        userid = str(decodeData['userid'])
-        age = decodeData['age']
-        name = decodeData['name']
-        nickname = decodeData['nickname']
-        portrait = decodeData['portrait']
-        gender = decodeData['gender']
-        birthday = decodeData['birthday']
-        charactersignature = decodeData['charactersignature']
-        #imagePath= decodeData['imagepath']
+        if 'userid' not in decodeData:
+            return json.dumps(creatFailure(1))
+        else:
+            userid = decodeData.get('userid')
+            age = decodeData.get('age')
+            name = decodeData.get('name')
+            nickname = decodeData.get('nickname')
+            portrait = decodeData.get('portrait')
+            gender = decodeData.get('gender')
+            birthday = decodeData.get('birthday')
+            charactersignature = decodeData.get('charactersignature')
 
-        db.update('link_user', where='userid=$userid',vars={'userid':userid}, age=age, name=name, nickname=nickname, gender=gender, birthday=birthday,charactersignature=charactersignature, portrait=portrait)
-        self.mtransation.commit();
-        return json.dumps(createSuccess("update success"))
+            db.update('link_user', where='userid=$userid',vars={'userid':userid}, age=age, name=name, nickname=nickname, gender=gender, birthday=birthday,charactersignature=charactersignature, portrait=portrait)
+            self.mtransation.commit()
+            return json.dumps(createSuccess("update success"))
 
 # 获取了相应的talk和comment但是还没有传图片
 class gettalk:

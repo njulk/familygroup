@@ -17,7 +17,10 @@ urls=(
     '/comment','comment',
     '/event','EventsController',
     '/event/(.+)','EventController',
-    '/user','user'
+    '/user','user',
+    # '/reminder/(.+)','ReminderController',
+    # '/reminder','RemindersController'
+
 )
 
 class CJsonEncoder(json.JSONEncoder):
