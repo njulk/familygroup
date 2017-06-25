@@ -21,14 +21,14 @@ class ImageController:
         '''上传图片'''
         input=web.input(image={})
 
-        if 'image' in input:
+        if 'image' and 'name' in input:
             if 'dir' in input:
                 filedir='/static/'+input.dir
             else:
                 filedir='/static'
 
             if os.path.isdir('.'+filedir):
-                filepath=input.image.filename.replace('\\','/')
+                filepath=input.name.replace('\\','/')
                 filename=filepath.split('/')[-1]
                 ext=filename.split('.',1)[1].lower()
 
