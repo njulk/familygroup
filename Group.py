@@ -30,12 +30,12 @@ def getgroupinfo(mgroupid):
 
 
 class creategroupmap:
-    def __int__(self):
+    def __init__(self):
         self.mtransation=db.transaction()
     def POST(self):
-        print(web.data())
+        #print(web.data())
         receivedata=json.loads(web.data())
-        print(receivedata)
+        #print(receivedata)
         mgroupid=receivedata['groupid']
         mimid=receivedata['imid']
         try:
@@ -55,6 +55,7 @@ class getgroupim:
         result=[]
         try:
             result=list(db.select('mapgroupid',where="groupid="+mgoupid))
+            #print(result)
             try:
                 first = result[0]
             except:
@@ -62,10 +63,10 @@ class getgroupim:
         except:
             return json.dumps(creatFailure(2, "fail"))
         else:
-            return json.dumps(list(result))
+            return json.dumps(createSuccess(result))
 
 class getgroup:
-    def __int__(self):
+    def __init__(self):
         self.mtransation = db.transaction()
     def GET(self):
         receivedata=web.input()
@@ -101,7 +102,7 @@ class creategroup:
             strcreateuserid=str(mcreateuserid)
             try:
                 db.insert('familygroup',groupid=mgroupid,createuserid=mcreateuserid,groupname=mgroupname,groupdescription=mgroupdescription,setgrouptime=msetgrouptime,groupportrait=mgroupportrait)
-                db.update('link_user',where='userid=$strcreateuserid',vars={'userid':strcreateuserid},groupid=mgroupid);
+                db.update('link_user',where='userid=$strcreateuserid',vars={'strcreateuserid':strcreateuserid},groupid=mgroupid);
                 #strgroupid=str(mgroupid)
                 #data=list(db.select('familygroup',where="groupid="+strgroupid))
                 #print(data)
