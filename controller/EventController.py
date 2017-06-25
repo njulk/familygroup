@@ -15,6 +15,7 @@ import utils
 class EventsController:
 
     # 根据groupid获取event
+    @utils.logged
     def GET(self):
         input=web.input()
 
@@ -39,6 +40,7 @@ class EventsController:
         return json.dumps(res,cls=utils.JsonExtendEncoder)
 
     # 提交新的event
+    @utils.logged
     def POST(self):
         input=json.loads(web.data())
         
@@ -69,6 +71,7 @@ class EventsController:
 
 class EventController:
     # 根据eventid获取事件
+    @utils.logged
     def GET(self,id):
         try:
             data=model.EventModel.getEventById(id)
@@ -80,6 +83,7 @@ class EventController:
         return json.dumps(res,cls=utils.JsonExtendEncoder)
 
      # 修改事件
+    @utils.logged
     def PUT(self,id):
         input=json.loads(web.data()) 
         condition={
@@ -99,6 +103,7 @@ class EventController:
         return json.dumps(res,cls=utils.JsonExtendEncoder)
 
     # 删除事件
+    @utils.logged
     def DELETE(self,id):
         try:
             model.EventModel.deleteEvent(id)

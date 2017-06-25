@@ -5,7 +5,9 @@ import web
 import json
 import decimal 
 from datetime import date  
-from datetime import datetime   
+from datetime import datetime
+
+isCheckLogin=False
 
 errors=[
     u'成功',
@@ -68,6 +70,18 @@ class JsonExtendEncoder(json.JSONEncoder):
             return o.strftime('%Y-%m-%d')  
         else:  
             return json.JSONEncoder.default(self, o)
+
+# 进行权限验证
+def logged(func):
+    def wrapper(*args,**kw):
+        if web.ctx.session.login==1 or not isCheckLogin:
+            return func(*args,**kw)
+        else:
+            res=creatFailure(4)
+            return json.dumps(res)
+    return wrapper
+            
+
 
 #db=web.database(dbn='mysql',user='root',pw='123456789',db='family',host="localhost")
 db=web.database(dbn='mysql',user='cdb_outerroot',pw='w85685216',db='familygroup',port=8470,host="594d02b639e4a.gz.cdb.myqcloud.com")
