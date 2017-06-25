@@ -31,6 +31,17 @@ if __name__=="__main__":
     '''
     db.create_table(sql)
 
+    sql = '''create table IF NOT EXISTS mapgroupid(
+           groupid bigint(12) NOT NULL PRIMARY KEY,
+           imid   varchar(200) NOT NULL                                        
+       )
+       '''
+    db.create_table(sql)
+
+
+
+
+
     sql='''create table IF NOT EXISTS event(
         eventid bigint(12) auto_increment NOT NULL PRIMARY KEY,
         createuserid varchar(200) NOT NULL,

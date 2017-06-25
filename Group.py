@@ -29,6 +29,55 @@ def getgroupinfo(mgroupid):
     return json.dumps(createSuccess(data),cls=CJsonEncoder)
 
 
+class creategroupmap:
+    def __int__(self):
+        self.mtransation=db.transaction()
+    def POST(self):
+        print(web.data())
+        receivedata=json.loads(web.data())
+        print(receivedata)
+        mgroupid=receivedata['groupid']
+        mimid=receivedata['imid']
+        try:
+            db.insert('mapgroupid',groupid=mgroupid,imid=mimid)
+        except:
+            self.mtransation.rollback()
+            return json.dumps(creatFailure(2,"fail"))
+        else:
+            self.mtransation.commit()
+            return json.dumps(createSuccess("success"))
+
+
+class getgroupim:
+    def GET(self):
+        receivedata=web.input()
+        mgoupid=receivedata['groupid']
+        result=[]
+        try:
+            result=list(db.select('mapgroupid',where="groupid="+mgoupid))
+            try:
+                first = result[0]
+            except:
+                return json.dumps(creatFailure(5, "no di"))
+        except:
+            return json.dumps(creatFailure(2, "fail"))
+        else:
+            return json.dumps(list(result))
+
+class getgroup:
+    def __int__(self):
+        self.mtransation = db.transaction()
+    def GET(self):
+        receivedata=web.input()
+        mgroupid=receivedata['groupid']
+        result=db.select('familygroup',where="groupid="+mgroupid)
+        try:
+            first=result[0]
+        except:
+            return json.dumps(creatFailure(5, "no id"))
+        return getgroupinfo(mgroupid)
+
+
 
 class creategroup:
     def __init__(self):

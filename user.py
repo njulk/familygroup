@@ -40,12 +40,12 @@ class login:            #login应该是POST请求
         self.mtransation = db.transaction()
         decodeData = js.loads(data)  #tmp为字典类型
         userid = str(decodeData['userid'])
-
         selectResult = list(db.select('link_user', what="userid,groupid,nickname,age,gender,charactersignature,birthday,portrait", where='userid=$userid',vars={'userid':userid}))
+        #print len(selectResult)
         if len(selectResult)==0:
             registerTime = datetime.now()
             db.insert('link_user', userid=userid, registertime=registerTime)
-            self.mtransation.commit();
+            self.mtransation.commit()
             return js.dumps(createSuccess("register success"))
         else:
             self.mtransation.rollback()
@@ -114,5 +114,21 @@ class comment:
         db.insert('comment',talkid=talkId,userid=userId,commentcontent=commentText,time=mtime)
         self.mtransation.commit();
         return createSuccess("comment commit success")
+
+class user:
+    def GET(self):
+        input=web.input()
+        if 'userid' in input:
+            userid=input.get('userid')
+            array=list(db.select('link_user',where='userid=$userid',vars=locals()))
+            if len(array)==0:
+                res=creatFailure(5)
+            else:
+                res=createSuccess(array[0])
+        else:
+            res=creatFailure(1)
+
+        web.header('content-type', 'text/json')
+        return json.dumps(res, cls=JsonExtendEncoder)
 
 
