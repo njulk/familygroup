@@ -33,9 +33,9 @@ class creategroupmap:
     def __init__(self):
         self.mtransation=db.transaction()
     def POST(self):
-        #print(web.data())
+        print(web.data())
         receivedata=json.loads(web.data())
-        #print(receivedata)
+        print(receivedata)
         mgroupid=receivedata['groupid']
         mimid=receivedata['imid']
         try:
@@ -55,7 +55,6 @@ class getgroupim:
         result=[]
         try:
             result=list(db.select('mapgroupid',where="groupid="+mgoupid))
-            #print(result)
             try:
                 first = result[0]
             except:
