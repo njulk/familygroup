@@ -2,10 +2,11 @@
 # -*- coding: utf-8 -*-
 
 import web
-web.config.debug = False
+# web.config.debug = False
 
 from controller.home import Home
 from controller.EventController import *
+from controller.ReminderController import *
 from controller.notfound import notfound
 from urls import urls
 from Group import *

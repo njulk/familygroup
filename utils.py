@@ -10,12 +10,12 @@ from datetime import datetime
 isCheckLogin=False
 
 errors=[
-    u'成功',
-    u'缺少必须的数据',
-    u'数据库操作失败',
-    u'数据格式错误',
-    u'没有权限',
-    u'此ID不存在'
+    u'成功',            #0
+    u'缺少必须的数据',   #1
+    u'数据库操作失败',   #2
+    u'数据格式错误',     #3
+    u'没有权限',         #4
+    u'此ID不存在'        #5
 ]
 
 def createSuccess(data=None):
@@ -83,5 +83,5 @@ def logged(func):
             
 
 
-#db=web.database(dbn='mysql',user='root',pw='123456789',db='family',host="localhost")
+# db=web.database(dbn='mysql',user='root',pw='123456789',db='family',host="localhost")
 db=web.database(dbn='mysql',user='cdb_outerroot',pw='w85685216',db='familygroup',port=8470,host="594d02b639e4a.gz.cdb.myqcloud.com")
