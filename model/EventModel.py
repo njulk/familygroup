@@ -20,7 +20,7 @@ def getEventById(eventid):
 
 # 根据groupid获取事件集合
 def getEventByGroupid(groupid):
-    data=db.select('event',where='groupid=$groupid',vars={'groupid': groupid})
+    data=db.select('event',where='groupid=$groupid',order='createtime desc,eventid desc',vars={'groupid': groupid})
     return list(data)
 
 # 根据groupid获取事件集合并分页

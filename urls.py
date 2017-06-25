@@ -18,6 +18,7 @@ urls=(
     '/event','EventsController',
     '/event/(.+)','EventController',
     '/user','user',
+    '/image','ImageController'
     # '/reminder/(.+)','ReminderController',
     # '/reminder','RemindersController'
 
