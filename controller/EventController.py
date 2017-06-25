@@ -46,7 +46,7 @@ class EventsController:
         
         if 'eventname' and 'createuserid' and 'groupid' in input:
             condition={
-                'createtime': datetime.datetime.utcnow(),
+                'createtime': datetime.datetime.now(),
                 'eventname': input['eventname'],
                 'createuserid': input['createuserid'],
                 'groupid': input['groupid'],
