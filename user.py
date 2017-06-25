@@ -64,11 +64,11 @@ class update:            #login应该是POST请求
         gender = decodeData['gender']
         birthday = decodeData['birthday']
         charactersignature = decodeData['charactersignature']
-        imagePath= decodeData['imagepath']
+        #imagePath= decodeData['imagepath']
 
-        db.update('link_user', where='userid=$userid',vars={'userid':userid}, age=age, name=name, nickname=nickname, gender=gender, birthday=birthday,charactersignature=charactersignature, portrait=imagePath)
+        db.update('link_user', where='userid=$userid',vars={'userid':userid}, age=age, name=name, nickname=nickname, gender=gender, birthday=birthday,charactersignature=charactersignature, portrait=portrait)
         self.mtransation.commit();
-        return createSuccess("update success")
+        return json.dumps(createSuccess("update success"))
 
 # 获取了相应的talk和comment但是还没有传图片
 class gettalk:
